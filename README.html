@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>readme</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="README_files/libs/clipboard/clipboard.min.js"></script>
+<script src="README_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="README_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="README_files/libs/quarto-html/popper.min.js"></script>
+<script src="README_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="README_files/libs/quarto-html/anchor.min.js"></script>
+<link href="README_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="README_files/libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="README_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="README_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="README_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="credit-card-fraud-detection" class="level1">
+<h1>💳 Credit Card Fraud Detection</h1>
+<p>An end-to-end data science project that detects fraudulent credit card transactions using machine learning, with a companion <strong>Streamlit web app</strong> for interactive exploration, training, evaluation, and live prediction.</p>
+<p><img src="https://img.shields.io/badge/Python-3.10%2B-blue" class="img-fluid" alt="Python"> <img src="https://img.shields.io/badge/Streamlit-1.3x-red" class="img-fluid" alt="Streamlit"> <img src="https://img.shields.io/badge/scikit--learn-1.3%2B-orange" class="img-fluid" alt="scikit-learn"> <img src="https://img.shields.io/badge/License-MIT-green.png" class="img-fluid" alt="License"></p>
+<hr>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">📌 Overview</h2>
+<p>Financial fraud is rare but costly — the well-known <a href="https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud">ULB / Kaggle dataset</a> contains <strong>284,807</strong> transactions of which only <strong>492 (≈0.172 %)</strong> are fraudulent. This extreme class imbalance makes <strong>accuracy a misleading metric</strong> — a model that always predicts “legitimate” is already 99.83 % accurate but catches zero frauds.</p>
+<p>This project therefore focuses on <strong>Recall</strong>, <strong>Precision</strong>, <strong>F1</strong>, and <strong>ROC-AUC</strong>, and systematically compares models trained under different imbalance-handling strategies (<strong>SMOTE</strong>, <strong>NearMiss</strong>, no balancing).</p>
+<hr>
+</section>
+<section id="features" class="level2">
+<h2 class="anchored" data-anchor-id="features">✨ Features</h2>
+<ul>
+<li>📊 <strong>Exploratory Data Analysis</strong> — class distribution, amount histograms, correlation heatmap, per-class boxplots, IQR outlier detection.</li>
+<li>⚙️ <strong>Robust preprocessing</strong> — de-duplication, standard scaling of <code>Time</code> / <code>Amount</code>, leakage-free train/test split (stratified).</li>
+<li>⚖️ <strong>Imbalance handling</strong> — plug-and-play <strong>SMOTE</strong>, <strong>NearMiss</strong>, or baseline.</li>
+<li>🤖 <strong>Multiple models</strong> — Logistic Regression, Random Forest, Decision Tree, k-Nearest Neighbors.</li>
+<li>📈 <strong>Evaluation</strong> — Accuracy, Precision, Recall, F1, ROC-AUC, confusion matrix, overlaid ROC curves, feature importances.</li>
+<li>🔁 <strong>5-fold cross-validation</strong> on the best model (SMOTE fitted inside folds — no leakage).</li>
+<li>🔮 <strong>Live prediction</strong> — score an uploaded CSV or sampled test rows with an adjustable fraud-decision threshold.</li>
+<li>🧪 <strong>Synthetic-data mode</strong> — the app ships with a realistic synthetic dataset so you can explore without downloading the 150 MB original.</li>
+</ul>
+<hr>
+</section>
+<section id="repository-structure" class="level2">
+<h2 class="anchored" data-anchor-id="repository-structure">🗂️ Repository Structure</h2>
+<pre><code>credit-card-fraud-detection/
+├── fraud_app.py            # Interactive Streamlit application
+├── fraud_detection.py      # Standalone CLI / notebook-style solution
+├── requirements.txt        # Python dependencies
+├── README.md               # You are here
+├── .gitignore              # Ignores data, caches, venvs
+├── data/
+│   └── .gitkeep            # (place creditcard.csv here)
+└── outputs/                # (plots / metric CSVs, auto-created)</code></pre>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> <code>creditcard.csv</code> is intentionally <strong>not</strong> committed (150 MB). See <a href="#-dataset">Dataset</a> below.</p>
+</blockquote>
+<hr>
+</section>
+<section id="dataset" class="level2">
+<h2 class="anchored" data-anchor-id="dataset">📦 Dataset</h2>
+<p>The original dataset was released by the <strong>Machine Learning Group at Université Libre de Bruxelles (ULB)</strong> in collaboration with <strong>Worldline</strong>, and is publicly hosted on Kaggle:</p>
+<p>🔗 <strong>https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Time</code></td>
+<td>Seconds elapsed since the first transaction</td>
+</tr>
+<tr class="even">
+<td><code>Amount</code></td>
+<td>Transaction amount</td>
+</tr>
+<tr class="odd">
+<td><code>V1–V28</code></td>
+<td>PCA-transformed anonymised features</td>
+</tr>
+<tr class="even">
+<td><code>Class</code></td>
+<td><code>0</code> = legitimate, <code>1</code> = fraud</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quick download via Kaggle CLI:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install kaggle</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kaggle</span> datasets download <span class="at">-d</span> mlg-ulb/creditcardfraud</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> creditcardfraud.zip <span class="at">-d</span> data/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then run the app and pick <strong>Upload CSV</strong> in the sidebar.</p>
+<hr>
+</section>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">🚀 Getting Started</h2>
+<section id="clone-the-repository" class="level3">
+<h3 class="anchored" data-anchor-id="clone-the-repository">1. Clone the repository</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/<span class="op">&lt;</span>your-username<span class="op">&gt;</span>/credit-card-fraud-detection.git</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> credit-card-fraud-detection</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="create-a-virtual-environment" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-virtual-environment">2. Create a virtual environment</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv .venv</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate         <span class="co"># macOS / Linux</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">.venv\Scripts\activate</span>            <span class="co"># Windows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="install-dependencies" class="level3">
+<h3 class="anchored" data-anchor-id="install-dependencies">3. Install dependencies</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="launch-the-streamlit-app" class="level3">
+<h3 class="anchored" data-anchor-id="launch-the-streamlit-app">4. Launch the Streamlit app</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">streamlit</span> run fraud_app.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The app opens at <strong>http://localhost:8501</strong>.</p>
+<p>In the sidebar, either: - <strong>Generate synthetic demo</strong> → works instantly, no download needed, or - <strong>Upload CSV</strong> → use the real <code>creditcard.csv</code>.</p>
+</section>
+<section id="optional-run-the-standalone-script" class="level3">
+<h3 class="anchored" data-anchor-id="optional-run-the-standalone-script">5. (Optional) Run the standalone script</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> fraud_detection.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ensure <code>creditcard.csv</code> is in the working directory first.</p>
+<hr>
+</section>
+</section>
+<section id="app-walkthrough" class="level2">
+<h2 class="anchored" data-anchor-id="app-walkthrough">🖥️ App Walkthrough</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Page</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>🏠 Overview</strong></td>
+<td>Project context + dataset KPIs</td>
+</tr>
+<tr class="even">
+<td><strong>📊 Data &amp; EDA</strong></td>
+<td>Preview, describe, plots, outlier summary</td>
+</tr>
+<tr class="odd">
+<td><strong>🧠 Train Models</strong></td>
+<td>Pick models × imbalance strategies, train, optional 5-fold CV</td>
+</tr>
+<tr class="even">
+<td><strong>📈 Evaluate &amp; Compare</strong></td>
+<td>Metrics table, bar charts, ROC curves, confusion matrix, feature importances</td>
+</tr>
+<tr class="odd">
+<td><strong>🔮 Make Predictions</strong></td>
+<td>Score a new CSV <strong>or</strong> sample test rows, tune threshold, download results</td>
+</tr>
+</tbody>
+</table>
+<section id="key-design-principles" class="level3">
+<h3 class="anchored" data-anchor-id="key-design-principles">Key design principles</h3>
+<ul>
+<li><strong>No data leakage</strong> — scaler + SMOTE are fitted on the training split only, and SMOTE runs <em>inside</em> each CV fold.</li>
+<li><strong>Recall-first mindset</strong> — the prediction page exposes the decision threshold so you can trade precision for recall depending on the business cost of a missed fraud vs.&nbsp;a false alarm.</li>
+<li><strong>Session state</strong> — trained models, scaler, and results persist across page navigation (you only train once).</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="example-results" class="level2">
+<h2 class="anchored" data-anchor-id="example-results">🧪 Example Results</h2>
+<p>On a synthetic 20k-row demo (5 % fraud) with default settings:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Strategy</th>
+<th>Accuracy</th>
+<th>Precision</th>
+<th>Recall</th>
+<th>F1</th>
+<th>ROC-AUC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Random Forest</td>
+<td>SMOTE</td>
+<td>0.998</td>
+<td>0.98</td>
+<td>0.96</td>
+<td>0.97</td>
+<td>0.999</td>
+</tr>
+<tr class="even">
+<td>Logistic Regression</td>
+<td>SMOTE</td>
+<td>0.995</td>
+<td>0.94</td>
+<td>0.93</td>
+<td>0.93</td>
+<td>0.997</td>
+</tr>
+<tr class="odd">
+<td>Random Forest</td>
+<td>Baseline</td>
+<td>0.999</td>
+<td>1.00</td>
+<td>0.85</td>
+<td>0.92</td>
+<td>0.999</td>
+</tr>
+<tr class="even">
+<td>k-NN</td>
+<td>NearMiss</td>
+<td>0.980</td>
+<td>0.70</td>
+<td>0.88</td>
+<td>0.78</td>
+<td>0.985</td>
+</tr>
+</tbody>
+</table>
+<p><em>(Numbers are illustrative — rerun on the full real dataset for authoritative results.)</em></p>
+<p>Takeaway: the <strong>baseline Random Forest has higher precision but lower recall</strong> — SMOTE trades a small precision loss for a substantial recall gain, which is usually the correct trade-off in fraud detection.</p>
+<hr>
+</section>
+<section id="tech-stack" class="level2">
+<h2 class="anchored" data-anchor-id="tech-stack">🛠️ Tech Stack</h2>
+<ul>
+<li><strong>Python 3.10+</strong></li>
+<li><strong>Data:</strong> <code>pandas</code>, <code>numpy</code></li>
+<li><strong>Visualisation:</strong> <code>matplotlib</code>, <code>seaborn</code></li>
+<li><strong>ML:</strong> <code>scikit-learn</code>, <code>imbalanced-learn</code></li>
+<li><strong>App:</strong> <code>streamlit</code></li>
+</ul>
+<hr>
+</section>
+<section id="contributing" class="level2">
+<h2 class="anchored" data-anchor-id="contributing">🤝 Contributing</h2>
+<p>Contributions are welcome!</p>
+<ol type="1">
+<li>Fork the repo</li>
+<li>Create a branch: <code>git checkout -b feature/my-feature</code></li>
+<li>Commit: <code>git commit -m "Add my feature"</code></li>
+<li>Push: <code>git push origin feature/my-feature</code></li>
+<li>Open a Pull Request</li>
+</ol>
+<p>Please run <code>black .</code> and <code>flake8</code> before submitting (optional but appreciated).</p>
+<hr>
+</section>
+<section id="license" class="level2">
+<h2 class="anchored" data-anchor-id="license">📜 License</h2>
+<p>Released under the <strong>MIT License</strong>. See <a href="LICENSE"><code>LICENSE</code></a> for details.</p>
+<p>The <strong>dataset</strong> is governed by the original authors’ terms — see the <a href="https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud">Kaggle page</a> for details.</p>
+<hr>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">🙏 Acknowledgements</h2>
+<ul>
+<li><strong>Andrea Dal Pozzolo, Olivier Caelen, Reid A. Johnson, Gianluca Bontempi</strong> — original dataset authors (<em>“Calibrating Probability with Undersampling for Unbalanced Classification”</em>, IEEE SSCI 2015).</li>
+<li><strong>Machine Learning Group, Université Libre de Bruxelles (ULB)</strong> and <strong>Worldline</strong>.</li>
+<li><a href="https://www.kaggle.com/">Kaggle</a> for hosting the dataset.</li>
+</ul>
+<hr>
+</section>
+<section id="contact" class="level2">
+<h2 class="anchored" data-anchor-id="contact">📬 Contact</h2>
+<ul>
+<li><strong>Author:</strong> Your Name</li>
+<li><strong>Email:</strong> you@example.com</li>
+<li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/your-profile">linkedin.com/in/your-profile</a></li>
+</ul>
+<p>⭐ If you find this useful, please <strong>star the repo</strong>!</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
